@@ -1,0 +1,14 @@
+GEM
+  remote: http://rubygems.org/
+  specs:
+    celluloid (0.12.3)
+      facter (>= 1.6.12)
+      timers (>= 1.0.0)
+    facter (1.6.13)
+    timers (1.0.1)
+
+PLATFORMS
+  java
+
+DEPENDENCIES
+  celluloid
