@@ -8,7 +8,8 @@ module Simcity
 
     def to_s
       return '.' if @map_cell.empty?
-      Renderer.for(map_cell[-1]).to_s
+      object = map_cell[-1]
+      Renderer.for(object).new.to_s
     end
   end
 end

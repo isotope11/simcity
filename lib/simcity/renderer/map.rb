@@ -10,7 +10,7 @@ module Simcity
       @map.grid.map do |row|
         row.map do |cell|
           Renderer::MapCell.new(cell).to_s
-        end
+        end.join("")
       end.join("\n")
     end
   end

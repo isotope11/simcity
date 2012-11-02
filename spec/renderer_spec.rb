@@ -9,7 +9,7 @@ describe Renderer do
     object = mock 'obj'
     klass = mock 'fake_class'
     object.stub(:class).and_return(klass)
-    klass.stub(:to_s).and_return("VanillaIce")
+    klass.stub(:to_s).and_return("Simcity::VanillaIce")
     module Simcity
       class Renderer::VanillaIce; end
     end

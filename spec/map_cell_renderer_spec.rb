@@ -16,7 +16,9 @@ describe Renderer::MapCell do
     object = mock 'object'
     fake_renderer = mock 'fake_renderer'
     fake_renderer.should_receive(:to_s).and_return('q')
-    Renderer.should_receive(:for).with(object).and_return(fake_renderer)
+    fake_renderer_class = mock 'fake renderer class'
+    fake_renderer_class.stub(:new).and_return(fake_renderer)
+    Renderer.should_receive(:for).with(object).and_return(fake_renderer_class)
     @cell.stub(:[]).with(-1).and_return object
     @renderer.to_s.should == 'q'
   end
