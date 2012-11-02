@@ -12,10 +12,10 @@ describe Map::Point do
 
   describe 'neighboring points' do
     it 'translates north' do
-      @point.north.should == Map::Point.new(1, 3)
+      @point.north.should == Map::Point.new(1, 1)
     end
     it 'translates south' do
-      @point.south.should == Map::Point.new(1, 1)
+      @point.south.should == Map::Point.new(1, 3)
     end
     it 'translates east' do
       @point.east.should == Map::Point.new(2, 2)

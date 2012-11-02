@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Actor do
 
   before do
-    @actor = Actor.new
+    @actor = Actor.new(mock)
   end
 
   it "responds to offer" do

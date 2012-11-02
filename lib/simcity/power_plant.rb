@@ -8,7 +8,7 @@ module Simcity
     end
 
     def generate_power
-      Actor::Power.new
+      Actor::Power.new(map)
     end
 
     def tick

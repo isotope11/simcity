@@ -48,17 +48,19 @@ module Simcity
     end
 
     def cell_at point
-      @grid[point.x][point.y]
+      @grid[point.y][point.x]
     end
 
     def tick
+      objects = []
       @grid.each do |row|
         row.each do |cell|
           cell.each do |obj|
-            obj.tick
+            objects << obj
           end
         end
       end
+      objects.each(&:tick)
     end
 
     private
@@ -75,11 +77,11 @@ module Simcity
 
     class Point < Struct.new(:x, :y)
       def north
-        Point.new(self.x, self.y + 1)
+        Point.new(self.x, self.y - 1)
       end
 
       def south
-        Point.new(self.x, self.y - 1)
+        Point.new(self.x, self.y + 1)
       end
 
       def east

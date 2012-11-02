@@ -14,5 +14,9 @@ module Simcity
     def neighbors
       [:north, :south, :east, :west].map {|sym| map.cell_at(point.send(sym)) }
     end
+
+    def tick
+      each(&:tick)
+    end
   end
 end
