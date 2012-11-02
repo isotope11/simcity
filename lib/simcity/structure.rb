@@ -13,5 +13,8 @@ module Simcity
     def point
       map.point_for_object(self)
     end
+
+    class Road < Structure
+    end
   end
 end
