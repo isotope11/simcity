@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Actor::Power do
   before do
-    @actor = Actor::Power.new
+    @actor = Actor::Power.new(mock)
   end
 
   it "offers power" do
