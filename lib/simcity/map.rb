@@ -31,6 +31,10 @@ module Simcity
       Point.new(x, y)
     end
 
+    def point_for_object object
+      point_for_cell(cell_for_object(object))
+    end
+
     def row_for_cell cell
       @grid.detect do |row|
         row.detect do |c|

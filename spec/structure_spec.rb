@@ -1,4 +1,5 @@
 require 'spec_helper'
+
 describe Structure do
   it "is instantiated with a map" do
     map = mock "map"
