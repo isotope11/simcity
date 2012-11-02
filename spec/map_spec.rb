@@ -24,4 +24,41 @@ describe Map do
       end
     end
   end
+
+  describe "getting a MapCell at coordinates" do
+    it "returns the appropriate MapCell" do
+      map = Map.new
+      map.cell_at(Map::Point.new(2, 3)).should be_a MapCell
+    end
+  end
+
+  describe "internal knowledge" do
+    before do
+      @map = Map.new
+      @point = Map::Point.new(1,1)
+      @cell = @map.cell_at(@point)
+      @object = mock
+      @cell << @object
+    end
+    it "knows the row a given object is in" do
+      @map.row_for_object(@object).should == @map.grid[1]
+    end
+
+    it "knows the cell a given object is in" do
+      @map.cell_for_object(@object).should == @cell
+    end
+
+    it "knows the point a given cell is at" do
+      @map.point_for_cell(@cell).should == Map::Point.new(1, 1)
+    end
+
+    it "knows a given MapCell's neighbors" do
+      neighbor_array = []
+      neighbor_array  << @map.cell_at(@point.north)
+      neighbor_array << @map.cell_at(@point.south)
+      neighbor_array << @map.cell_at(@point.east)
+      neighbor_array << @map.cell_at(@point.west)
+      @map.neighbors_for(@cell).should == neighbor_array
+    end
+  end
 end
