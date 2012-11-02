@@ -14,6 +14,9 @@ module Simcity
       map.point_for_object(self)
     end
 
+    def tick
+    end
+
     class Road < Structure
     end
   end
