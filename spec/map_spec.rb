@@ -52,13 +52,5 @@ describe Map do
       @map.point_for_cell(@cell).should == Map::Point.new(1, 1)
     end
 
-    it "knows a given MapCell's neighbors" do
-      neighbor_array = []
-      neighbor_array  << @map.cell_at(@point.north)
-      neighbor_array << @map.cell_at(@point.south)
-      neighbor_array << @map.cell_at(@point.east)
-      neighbor_array << @map.cell_at(@point.west)
-      @map.neighbors_for(@cell).should == neighbor_array
-    end
   end
 end

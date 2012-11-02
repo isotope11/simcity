@@ -9,7 +9,7 @@ module Simcity
 
     def neighbors_for_object object
       cell = cell_for_object(object)
-      neighbors_for_cell(cell)
+      cell.neighbors
     end
 
     def cell_for_object object
@@ -47,18 +47,13 @@ module Simcity
       @grid[point.x][point.y]
     end
 
-    def neighbors_for(cell)
-      point = point_for_cell(cell)
-      [:north, :south, :east, :west].map {|sym| cell_at(point.send(sym)) }
-    end
-
     private
     def build_grid
       @grid = []
       height.times do |i|
         line = []
         width.times do |g|
-          line << MapCell.new
+          line << MapCell.new(self)
         end
         @grid << line
       end
