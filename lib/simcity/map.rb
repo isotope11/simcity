@@ -51,6 +51,16 @@ module Simcity
       @grid[point.x][point.y]
     end
 
+    def tick
+      @grid.each do |row|
+        row.each do |cell|
+          cell.each do |obj|
+            obj.tick
+          end
+        end
+      end
+    end
+
     private
     def build_grid
       @grid = []

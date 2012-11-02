@@ -53,4 +53,18 @@ describe Map do
     end
 
   end
+
+  describe "map tick" do
+    it "calls tick on all objects in each mapcell" do
+      map = Map.new
+      fake_object_1 = mock "fake object 1"
+      fake_object_2 = mock "fake object 2"
+      fake_object_3 = mock "fake object 3"
+      [fake_object_1,fake_object_2, fake_object_3].each { |obj| obj.should_receive(:tick) }
+      map.cell_at(Map::Point.new(1,1)) << fake_object_1
+      map.cell_at(Map::Point.new(1,1)) << fake_object_2
+      map.cell_at(Map::Point.new(1,2)) << fake_object_3
+      map.tick
+    end
+  end
 end
