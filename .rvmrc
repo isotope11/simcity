@@ -1,1 +1,1 @@
-rvm jruby-1.7.0@simcity --create
+rvm ruby-1.9.3-p194@simcity --create
