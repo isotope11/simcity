@@ -24,11 +24,15 @@ module Simcity
       end
 
       def tick
-        old_map_cell = map.cell_for_object(self)
-        north_point = old_map_cell.point.north
-        new_map_cell = map.cell_at(north_point)
-        old_map_cell.delete(self)
-        new_map_cell << self
+        road = nil
+        map.neighbors_for_object(self).detect do |map_cell|
+          road = map_cell.detect {|object| object.is_a?(Structure::Road) }
+        end
+        if road
+          map.cell_for_object(road) << self
+        end
+        #If there is a road, we'll copy ourselves to it, but regardless, we remove ourselves from the map
+        map.cell_for_object(self).delete(self)
       end
     end
   end

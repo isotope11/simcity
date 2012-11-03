@@ -18,14 +18,14 @@ describe PowerPlant do
     @map.stub(:point_for_object).and_return(Map::Point.new(2,2))
     fake_cell = mock 'fake cell'
     fake_road = mock "fake road"
+
     map_cell_north = mock "map_cell_north"
     map_cell_south = mock "map_cell_south"
     map_cell_east = mock "map_cell_east"
     map_cell_west = mock "map_cell_west"
-    map_cell_north.should_receive(:detect).and_return(nil)
-    map_cell_south.should_receive(:detect).and_return(nil)
-    map_cell_east.should_receive(:detect).and_return(nil)
-    map_cell_west.should_receive(:detect).exactly(2).times.and_return(fake_road)
+    [map_cell_north, map_cell_south, map_cell_east].each { |obj| obj.should_receive(:detect).and_return(nil) }
+    map_cell_west.should_receive(:detect).exactly(1).times.and_return(fake_road)
+
     @map.should_receive(:cell_for_object).with(fake_road).and_return(fake_cell)
     point = @power_plant.point.north
     @map.stub(:cell_at).with(point).and_return(fake_cell)
