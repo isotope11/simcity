@@ -14,7 +14,7 @@ describe Actor::Power do
     @actor.offer?(:water).should be_false
   end
 
-  it "moves to an adjacent road if availble on tick" do
+  it "moves to an adjacent road if available on tick" do
     fake_cell = mock 'fake cell'
     other_fake_cell = mock 'other fake cell'
     fake_road = mock "fake road"

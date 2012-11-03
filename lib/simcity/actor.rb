@@ -5,6 +5,7 @@ module Simcity
 
     def initialize map
       @map = map
+      @last_cell = nil
     end
 
     def resource_type
@@ -26,13 +27,15 @@ module Simcity
       def tick
         road = nil
         map.neighbors_for_object(self).detect do |map_cell|
+          return false if map_cell == @last_cell # Don't go back to the cell we were just in
           road = map_cell.detect {|object| object.is_a?(Structure::Road) }
         end
+        @last_cell = map.cell_for_object(self)
         if road
           map.cell_for_object(road) << self
         end
         #If there is a road, we'll copy ourselves to it, but regardless, we remove ourselves from the map
-        map.cell_for_object(self).delete(self)
+        @last_cell.delete(self)
       end
     end
   end
