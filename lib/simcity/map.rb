@@ -2,8 +2,7 @@ module Simcity
   class Map
     attr_accessor :width, :height, :grid
     def initialize width=100, height=100
-      @width = width
-      @height = height
+      @width, @height = [width, height]
       build_grid
     end
 
@@ -17,7 +16,6 @@ module Simcity
     end
 
     def row_for_object object
-      #@grid.detect{|c| c.include?(object) }
       @grid.detect do |row|
         row.detect do |cell|
           cell.include?(object)
@@ -32,7 +30,8 @@ module Simcity
     end
 
     def point_for_object object
-      point_for_cell(cell_for_object(object))
+      cell = cell_for_object(object)
+      point_for_cell(cell)
     end
 
     def row_for_cell cell

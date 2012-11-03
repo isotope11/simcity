@@ -1,5 +1,7 @@
+require_relative 'helper_mixin'
 module Simcity
   class PowerPlant < Structure
+    include Simcity::HelperMixin
     attr_accessor :resource_rate
 
     def initialize(map)
@@ -12,12 +14,8 @@ module Simcity
     end
 
     def tick
-      road = nil
-      map.neighbors_for_object(self).detect do |map_cell|
-        road = map_cell.detect {|object| object.is_a?(Structure::Road) }
-      end
-      return unless road
-      map.cell_for_object(road) << generate_power
+      road = first_neighboring_road
+      map.cell_for_object(road) << generate_power if road
     end
   end
 end

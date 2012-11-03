@@ -12,7 +12,11 @@ module Simcity
     end
 
     def neighbors
-      [:north, :south, :east, :west].map {|sym| map.cell_at(point.send(sym)) }
+      [:north, :south, :east, :west].map do |sym|
+        #Figure out the point to the [:north, :south, etc] of self.point
+        translated_point = point.send(sym)
+        map.cell_at(translated_point)
+      end
     end
 
     def tick

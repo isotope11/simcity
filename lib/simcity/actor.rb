@@ -1,5 +1,7 @@
+require_relative 'helper_mixin'
 module Simcity
   class Actor
+    include Simcity::HelperMixin
     attr_accessor :map, :last_cell
 
     def initialize map
@@ -27,15 +29,6 @@ module Simcity
         @last_cell = map.cell_for_object(self)
         map.cell_for_object(road) << self if road
         @last_cell.delete(self)
-      end
-
-      def first_neighboring_road
-        neighbors = map.neighbors_for_object(self) - [last_cell]
-        road = nil
-        neighbors.detect do |map_cell|
-          road = map_cell.detect {|object| object.is_a?(Structure::Road) }
-        end
-        road
       end
     end
   end
