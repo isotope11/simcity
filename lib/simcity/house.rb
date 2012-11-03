@@ -21,6 +21,7 @@ module Simcity
     def consume_resources
       consume_power
       consume_water
+      produce_garbage
     end
 
     def consume_water
@@ -39,6 +40,11 @@ module Simcity
         @powered = true
         map.cell_for_object(power).delete(power)
       end
+    end
+
+    def produce_garbage
+      road = first_type_of_object_in_cells Structure::Road, neighbors
+      map.cell_for_object(road) << Actor::Garbage.new(map) if road
     end
 
     def tick

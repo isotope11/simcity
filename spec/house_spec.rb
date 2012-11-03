@@ -12,7 +12,23 @@ describe  House do
   it "should consume water and power on tick" do
     @house.should_receive(:consume_power).exactly(1).times
     @house.should_receive(:consume_water).exactly(1).times
+    @house.should_receive(:produce_garbage).exactly(1).times
     @house.tick
+  end
+
+  it "produces garbage on the nearest road" do
+    fake_road = mock "fake_road"
+
+    map_cell_north = mock "map_cell_north"
+    map_cell_south = mock "map_cell_south"
+    map_cell_east = mock "map_cell_east"
+    map_cell_west = mock "map_cell_west"
+    @map.should_receive(:neighbors_for_object).with(@house).and_return([map_cell_north, map_cell_south, map_cell_east, map_cell_west])
+
+    map_cell_north.should_receive(:detect).and_return(fake_road)
+    map_cell_north.should_receive(:<<).with(kind_of(Actor::Garbage))
+    @map.should_receive(:cell_for_object).with(fake_road).and_return(map_cell_north)
+    @house.produce_garbage
   end
 
   it "isn't watered before a tick" do

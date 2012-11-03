@@ -32,6 +32,15 @@ module Simcity
       end
     end
 
+    class Garbage < Resource
+      def resource_type
+        :garbage
+      end
+    end
+
+    #Dieing resource removes itself from the map when there is no where else to go
+    #This needs to be refactored as Resource shouldn't know about DieingResource
+    #We need some sort of mixin that will detect the situation of not knowing which way to go and delete itself
     class DieingResource < Resource
       def dieing_resource?
         true
