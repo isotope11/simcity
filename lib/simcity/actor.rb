@@ -23,18 +23,28 @@ module Simcity
         effective_neighbors = neighbors - [last_cell]
         road = first_type_of_object_in_cells Structure::Road, effective_neighbors
         @last_cell = map.cell_for_object(self)
-        map.cell_for_object(road) << self if road
-        @last_cell.delete(self)
+        if road
+          map.cell_for_object(road) << self if road
+          @last_cell.delete(self)
+        elsif self.respond_to?(:dieing_resource?) && dieing_resource?
+          @last_cell.delete(self)
+        end
       end
     end
 
-    class Power < Resource
+    class DieingResource < Resource
+      def dieing_resource?
+        true
+      end
+    end
+
+    class Power < DieingResource
       def resource_type
         :power
       end
     end
 
-    class Water < Resource
+    class Water < DieingResource
       def resource_type
         :water
       end
