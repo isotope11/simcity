@@ -46,4 +46,20 @@ describe Actor::Power do
     other_fake_cell.should_receive(:delete).with(@actor)
     @actor.tick
   end
+
+  it "won't even consider going into the cell it was last in" do
+    current_cell = mock 'current_cell'
+
+    map_cell_north = mock "map_cell_north"
+    map_cell_south = mock "map_cell_south"
+    map_cell_east = mock "map_cell_east"
+    map_cell_west = mock "map_cell_west"
+    fake_road = mock "fake road"
+    [map_cell_north, map_cell_south, map_cell_east].each { |obj| obj.should_receive(:detect).and_return(nil) }
+    @map.should_receive(:neighbors_for_object).with(@actor).and_return([map_cell_north, map_cell_south, map_cell_east, map_cell_west])
+    @map.should_receive(:cell_for_object).with(@actor).and_return(current_cell)
+    @actor.last_cell = map_cell_west
+    current_cell.should_receive(:delete).with(@actor)
+    @actor.tick
+  end
 end
