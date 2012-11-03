@@ -20,4 +20,14 @@ describe MapCell do
     end
     @cell.neighbors.should == [fake_cell, fake_cell, fake_cell, fake_cell]
   end
+
+  it "knows how to tick" do
+    fake_thing_1 = mock "fake_thing_1"
+    fake_thing_2 = mock "fake_thing_2"
+    fake_thing_1.should_receive(:tick)
+    fake_thing_2.should_receive(:tick)
+    @cell << fake_thing_1
+    @cell << fake_thing_2
+    @cell.tick
+  end
 end

@@ -44,6 +44,10 @@ describe Map do
       @map.row_for_object(@object).should == @map.grid[1]
     end
 
+    it "knows the point for a given object" do
+      @map.point_for_object(@object).should == @point
+    end
+
     it "knows the cell a given object is in" do
       @map.cell_for_object(@object).should == @cell
     end
