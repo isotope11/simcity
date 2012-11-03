@@ -9,29 +9,69 @@ describe  House do
     @west_cell = mock "west_cell"
   end
 
-  it "isn't powered before a tick" do
-    @house.powered?.should be_false
+  it "should consume water and power on tick" do
+    @house.should_receive(:consume_power).exactly(1).times
+    @house.should_receive(:consume_water).exactly(1).times
+    @house.tick
   end
 
-  it "isn't powered after a tick if there is no power" do
+  it "isn't watered before a tick" do
+    @house.watered?.should be_false
+  end
+
+  it "isn't watered after consuming water if there is no water" do
+    [@north_cell, @south_cell, @east_cell, @west_cell].each { |cell| cell.should_receive(:detect).any_number_of_times }
+
+    @map.should_receive(:neighbors_for_object).with(@house).and_return([@north_cell, @south_cell, @east_cell, @west_cell])
+    @house.consume_water
+    @house.watered?.should be_false
+  end
+
+  it "is watered after consuming water if there is a water actor nearby" do
+    @water = mock "water"
+    @north_cell.should_receive(:detect).and_return(@water)
+
+    @map.should_receive(:neighbors_for_object).with(@house).and_return([@north_cell, @south_cell, @east_cell, @west_cell])
+    @map.should_receive(:cell_for_object).with(@water).and_return(@north_cell)
+    @north_cell.should_receive(:delete).with(@water)
+    @house.consume_water
+    @house.watered?.should be_true
+  end
+
+  it "should lose water after being watered when there is no water" do
+    @house.watered = true
+    @house.watered?.should be_true
+
     @north_cell.should_receive(:detect)
     @south_cell.should_receive(:detect)
     @east_cell.should_receive(:detect)
     @west_cell.should_receive(:detect)
 
     @map.should_receive(:neighbors_for_object).with(@house).and_return([@north_cell, @south_cell, @east_cell, @west_cell])
-    @house.tick
+    @house.consume_water
+    @house.watered?.should be_false
+  end
+
+  it "isn't powered before a tick" do
     @house.powered?.should be_false
   end
 
-  it "is powered if there is a power actor nearby" do
+  it "isn't powered after consuming power if there is no power" do
+    [@north_cell, @south_cell, @east_cell, @west_cell].each { |cell| cell.should_receive(:detect).any_number_of_times }
+
+    @map.should_receive(:neighbors_for_object).with(@house).and_return([@north_cell, @south_cell, @east_cell, @west_cell])
+    @house.consume_power
+    @house.powered?.should be_false
+  end
+
+  it "is powered after consuming power if there is a power actor nearby" do
     @power = mock "power"
     @north_cell.should_receive(:detect).and_return(@power)
 
     @map.should_receive(:neighbors_for_object).with(@house).and_return([@north_cell, @south_cell, @east_cell, @west_cell])
     @map.should_receive(:cell_for_object).with(@power).and_return(@north_cell)
     @north_cell.should_receive(:delete).with(@power)
-    @house.tick
+    @house.consume_power
     @house.powered?.should be_true
   end
 
@@ -45,7 +85,7 @@ describe  House do
     @west_cell.should_receive(:detect)
 
     @map.should_receive(:neighbors_for_object).with(@house).and_return([@north_cell, @south_cell, @east_cell, @west_cell])
-    @house.tick
+    @house.consume_power
     @house.powered?.should be_false
   end
 end
