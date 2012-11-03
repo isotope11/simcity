@@ -1,1 +1,3 @@
-rvm ruby-1.9.3-p194@simcity --create
+#How to install ruby 2 preview
+#rvm reinstall ruby-head -n newborn && rvm ruby-head-newborn
+rvm ruby-head-newborn@simcity --create
