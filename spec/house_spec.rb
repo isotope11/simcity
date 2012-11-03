@@ -1,5 +1,5 @@
 require 'spec_helper'
-describe  House do
+describe House do
   before do
     @map = mock 'map'
     @house = House.new(@map)
