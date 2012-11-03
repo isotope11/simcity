@@ -26,19 +26,15 @@ module Simcity
       def tick
         road = first_neighboring_road
         @last_cell = map.cell_for_object(self)
-        if road
-          map.cell_for_object(road) << self
-        end
-        #If there is a road, we'll copy ourselves to it, but regardless, we remove ourselves from the map
+        map.cell_for_object(road) << self if road
         @last_cell.delete(self)
       end
 
       def first_neighboring_road
         neighbors = map.neighbors_for_object(self) - [last_cell]
         road = nil
-        neighbors.each do |map_cell|
+        neighbors.detect do |map_cell|
           road = map_cell.detect {|object| object.is_a?(Structure::Road) }
-          break if road
         end
         road
       end
