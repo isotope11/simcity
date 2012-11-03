@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
 Gem::Specification.new do |s|
   s.name        = "simcity"
-  s.version     = 0.0.1
+  s.version     = "0.0.1"
   s.authors     = ["Adam Gamble", "Josh Adams"]
   s.email       = ["agamble@isotope11.com", "josh@isotope11.com"]
   s.homepage    = "http://github.com/isotope11/simcity"
