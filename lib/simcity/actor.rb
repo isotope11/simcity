@@ -4,7 +4,6 @@ module Simcity
 
     def initialize map
       @map = map
-      @last_cell = nil
     end
 
     def resource_type
