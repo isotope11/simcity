@@ -15,8 +15,7 @@ module Simcity
     end
 
     def consume_power
-      neighbor_cells = map.neighbors_for_object(self)
-      power = first_type_of_object_in_cells Actor::Power, neighbor_cells
+      power = first_type_of_object_in_cells Actor::Power, neighbors
       if power
         @powered = true
         map.cell_for_object(power).delete(power)

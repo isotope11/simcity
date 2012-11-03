@@ -13,7 +13,7 @@ module Simcity
     end
 
     def tick
-      road = first_neighboring_road
+      road = first_type_of_object_in_cells Structure::Road, neighbors
       map.cell_for_object(road) << generate_power if road
     end
   end

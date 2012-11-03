@@ -1,10 +1,8 @@
 module Simcity
   module HelperMixin
 
-    def first_neighboring_road
-      neighbors = map.neighbors_for_object(self)
-      neighbors -= [last_cell] if defined?(last_cell)
-      first_type_of_object_in_cells Structure::Road, neighbors
+    def neighbors
+      map.neighbors_for_object(self)
     end
 
     def first_type_of_object_in_cells type, cells

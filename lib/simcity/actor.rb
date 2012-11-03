@@ -25,7 +25,8 @@ module Simcity
       end
 
       def tick
-        road = first_neighboring_road
+        effective_neighbors = neighbors - [last_cell]
+        road = first_type_of_object_in_cells Structure::Road, effective_neighbors
         @last_cell = map.cell_for_object(self)
         map.cell_for_object(road) << self if road
         @last_cell.delete(self)
