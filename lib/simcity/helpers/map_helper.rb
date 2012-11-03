@@ -1,5 +1,5 @@
 module Simcity
-  module HelperMixin
+  module MapHelper
 
     def neighbors
       map.neighbors_for_object(self)

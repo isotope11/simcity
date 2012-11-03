@@ -1,7 +1,6 @@
-require_relative 'helper_mixin'
 module Simcity
   class PowerPlant < Structure
-    include Simcity::HelperMixin
+    include Simcity::MapHelper
 
     def initialize(map)
       super

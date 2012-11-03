@@ -1,7 +1,6 @@
-require_relative 'helper_mixin'
 module Simcity
   class House < Structure
-    include Simcity::HelperMixin
+    include Simcity::MapHelper
     attr_accessor :powered
 
     def initialize(map)

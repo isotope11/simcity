@@ -1,7 +1,6 @@
-require_relative 'helper_mixin'
 module Simcity
   class Actor
-    include Simcity::HelperMixin
+    include Simcity::MapHelper
     attr_accessor :map, :last_cell
 
     def initialize map
