@@ -2,7 +2,6 @@ require_relative 'helper_mixin'
 module Simcity
   class PowerPlant < Structure
     include Simcity::HelperMixin
-    attr_accessor :resource_rate
 
     def initialize(map)
       super

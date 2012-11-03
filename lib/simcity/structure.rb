@@ -1,6 +1,6 @@
 module Simcity
   class Structure
-    attr_accessor :map
+    attr_accessor :map, :resource_rate
 
     def initialize(map)
       @map = map
