@@ -11,4 +11,8 @@ describe "Edge cases" do
     @map.tick
     @map.tick
   end
+  it "can handle a power plant on the far right border" do
+    @map.cell_at(Map::Point.new(9, 9)) << PowerPlant.new(@map)
+    @map.tick
+  end
 end

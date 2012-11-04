@@ -49,7 +49,9 @@ module Simcity
     end
 
     def cell_at point
-      @grid[point.y][point.x]
+      row = @grid[point.y]
+      return nil unless row
+      row[point.x]
     end
 
     def tick

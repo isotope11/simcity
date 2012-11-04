@@ -16,7 +16,7 @@ module Simcity
         #Figure out the point to the [:north, :south, etc] of self.point
         translated_point = point.send(sym)
         map.cell_at(translated_point)
-      end
+      end.compact
     end
 
     def tick

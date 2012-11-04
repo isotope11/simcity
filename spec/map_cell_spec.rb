@@ -15,10 +15,11 @@ describe MapCell do
   it "knows its neighbors" do
     fake_cell = mock
     @map.stub(:point_for_cell).and_return(Map::Point.new(2, 2))
-    [:north, :south, :east, :west].map do |sym|
+    [:north, :south, :east].map do |sym|
       @map.should_receive(:cell_at).with(@cell.point.send(sym)).and_return(fake_cell)
     end
-    @cell.neighbors.should == [fake_cell, fake_cell, fake_cell, fake_cell]
+    @map.should_receive(:cell_at).with(@cell.point.send(:west)).and_return(nil)
+    @cell.neighbors.should == [fake_cell, fake_cell, fake_cell]
   end
 
   it "knows how to tick" do
