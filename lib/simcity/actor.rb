@@ -20,6 +20,7 @@ module Simcity
 
     class Resource < Actor
       def tick
+        return true unless exists_in_map?
         effective_neighbors = neighbors - [last_cell]
         road = first_type_of_object_in_cells Structure::Road, effective_neighbors
         @last_cell = map.cell_for_object(self)
@@ -29,6 +30,10 @@ module Simcity
         elsif self.respond_to?(:dieing_resource?) && dieing_resource?
           @last_cell.delete(self)
         end
+      end
+
+      def exists_in_map?
+        @map.cell_for_object(self)
       end
     end
 

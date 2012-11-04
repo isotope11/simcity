@@ -12,7 +12,9 @@ module Simcity
     end
 
     def cell_for_object object
-      row_for_object(object).detect{|c| c.include?(object) }
+      row = row_for_object(object)
+      return nil unless row
+      row.detect{|c| c.include?(object) }
     end
 
     def row_for_object object
