@@ -13,7 +13,7 @@ module Simcity
     def consume_resources
       consume_power
       consume_water
-      produce_garbage
+      #produce_garbage
     end
 
     def tick

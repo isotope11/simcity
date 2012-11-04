@@ -15,4 +15,15 @@ describe "Edge cases" do
     @map.cell_at(Map::Point.new(9, 9)) << PowerPlant.new(@map)
     @map.tick
   end
+  it "allows a house to consume water to its left" do
+    house = House.new(@map)
+    @map.cell_at(Map::Point.new(4, 8)) << house
+    @map.tick
+    house.should_not be_watered
+    @map.cell_at(Map::Point.new(3, 8)) << Structure::Road.new(@map)
+    @map.cell_at(Map::Point.new(3, 9)) << WaterPump.new(@map)
+    @map.tick
+    @map.tick
+    house.should be_watered
+  end
 end

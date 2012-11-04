@@ -63,7 +63,10 @@ module Simcity
           end
         end
       end
+      actors = objects.select{|o| o.is_a?(Actor) }
+      objects = objects - actors
       objects.each(&:tick)
+      actors.each(&:tick)
     end
 
     private
