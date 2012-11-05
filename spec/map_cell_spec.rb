@@ -31,4 +31,11 @@ describe MapCell do
     @cell << fake_thing_2
     @cell.tick
   end
+
+  it "can clear itself" do
+    @cell << mock
+    @cell.length.should == 1
+    @cell.clear
+    @cell.length.should == 0
+  end
 end
