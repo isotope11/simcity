@@ -4,7 +4,7 @@ module Simcity
     include Simcity::ResourceHelper
 
     def consume_resources
-      consume_garbage
+      consume_garbage(10)
     end
 
     def tick
