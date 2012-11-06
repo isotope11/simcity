@@ -8,7 +8,11 @@ module Simcity
     def first_type_of_object_in_cells type, cells
       object = nil
       cells.detect do |map_cell|
-        object = map_cell.detect { |object| object.is_a?(type) }
+        if map_cell.keys.include?(type)
+          object = map_cell[type].first
+        else
+          false
+        end
       end
       object
     end

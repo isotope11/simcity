@@ -58,8 +58,8 @@ module Simcity
       objects = []
       @grid.each do |row|
         row.each do |cell|
-          cell.each do |obj|
-            objects << obj
+          cell.each_pair do |k, value|
+            objects += value
           end
         end
       end

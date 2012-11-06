@@ -15,8 +15,9 @@ describe Actor::Resource do
     map_cell_south = mock "map_cell_south"
     map_cell_east = mock "map_cell_east"
     map_cell_west = mock "map_cell_west"
-    [map_cell_north, map_cell_south, map_cell_east].each { |obj| obj.should_receive(:detect).and_return(nil) }
-    map_cell_west.should_receive(:detect).exactly(1).times.and_return(fake_road)
+    [map_cell_north, map_cell_south, map_cell_east].each { |obj| obj.should_receive(:keys).and_return([]) }
+    map_cell_west.should_receive(:keys).exactly(1).times.and_return([Structure::Road])
+    map_cell_west.should_receive(:[]).exactly(1).times.with(Structure::Road).and_return([fake_road])
     @map.should_receive(:neighbors_for_object).with(@actor).and_return([map_cell_north, map_cell_south, map_cell_east, map_cell_west])
     @map.stub(:cell_for_object).with(fake_road).and_return(fake_cell)
     @map.stub(:cell_for_object).with(@actor).and_return(other_fake_cell)
@@ -33,7 +34,7 @@ describe Actor::Resource do
     map_cell_east = mock "map_cell_east"
     map_cell_west = mock "map_cell_west"
     fake_road = mock "fake road"
-    [map_cell_north, map_cell_south, map_cell_east].each { |obj| obj.should_receive(:detect).and_return(nil) }
+    [map_cell_north, map_cell_south, map_cell_east].each { |obj| obj.should_receive(:keys).and_return([]) }
     @map.should_receive(:neighbors_for_object).with(@actor).and_return([map_cell_north, map_cell_south, map_cell_east, map_cell_west])
     @map.stub(:cell_for_object).with(@actor).and_return(current_cell)
     @actor.last_cell = map_cell_west

@@ -1,14 +1,23 @@
 module Simcity
 
-  class MapCell < Array
+  class MapCell < Hash
     attr_accessor :map
 
     def initialize map
+      self.default_proc = proc { |h, k| h[k] = Array.new }
       @map = map
     end
 
     def point
       map.point_for_cell(self)
+    end
+
+    def [] key
+      if key.is_a?(Class)
+        super
+      else
+        super(key.class)
+      end
     end
 
     def neighbors
@@ -20,7 +29,22 @@ module Simcity
     end
 
     def tick
-      each(&:tick)
+      each_pair do |key, value|
+        value.each(&:tick)
+      end
+    end
+
+    def include? object
+      return false unless keys.include?(object.class)
+      self[object].detect {|element| element == object }
+    end
+
+    def << object
+      self[object] << object
+    end
+
+    def delete object
+      self[object].delete(object)
     end
   end
 end

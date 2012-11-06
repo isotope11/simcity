@@ -16,7 +16,8 @@ describe GarbageDump do
 
   it "consumes garbage if it is nearby" do
     @garbage = mock "garbage"
-    @north_cell.should_receive(:detect).and_return(@garbage)
+    @north_cell.should_receive(:keys).and_return([Actor::Garbage])
+    @north_cell.should_receive(:[]).with(Actor::Garbage).and_return([@garbage])
 
     @map.should_receive(:neighbors_for_object).with(@garbage_dump).and_return([@north_cell, @south_cell, @east_cell, @west_cell])
     @map.should_receive(:cell_for_object).with(@garbage).and_return(@north_cell)

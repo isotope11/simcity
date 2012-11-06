@@ -23,8 +23,9 @@ describe PowerPlant do
     map_cell_south = mock "map_cell_south"
     map_cell_east = mock "map_cell_east"
     map_cell_west = mock "map_cell_west"
-    [map_cell_north, map_cell_south, map_cell_east].each { |obj| obj.should_receive(:detect).and_return(nil) }
-    map_cell_west.should_receive(:detect).exactly(1).times.and_return(fake_road)
+    [map_cell_north, map_cell_south, map_cell_east].each { |obj| obj.should_receive(:keys).exactly(1).times.and_return([]) }
+    map_cell_west.should_receive(:keys).exactly(1).times.and_return([Structure::Road])
+    map_cell_west.should_receive(:[]).exactly(1).times.with(Structure::Road).and_return([fake_road])
 
     @map.should_receive(:cell_for_object).with(fake_road).and_return(fake_cell)
     point = @power_plant.point.north
