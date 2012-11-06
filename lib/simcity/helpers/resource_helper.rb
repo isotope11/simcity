@@ -36,8 +36,9 @@ module Simcity
     end
 
     def consume_garbage amount = 1
+      _neighbors = neighbors
       while amount != 0
-        garbage = first_type_of_object_in_cells Actor::Garbage, neighbors
+        garbage = first_type_of_object_in_cells Actor::Garbage, _neighbors
         if garbage
           map.cell_for_object(garbage).delete(garbage)
           amount -= 1
